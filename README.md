@@ -1,2 +1,2 @@
 # simplePromise
-Implement a simple promise
+Implement a simple Promise.
