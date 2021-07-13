@@ -89,14 +89,17 @@ class MyPromise {
       };
       // 调用then时,不同状态不同回调
       switch (this.status) {
+        // 同步执行
         case FULLFILLED:
           // 调用传入的函数
           fullfilledMicrotask();
           break;
+        // 同步执行
         case REJECTED:
           rejectedMicrotask();
           break;
         // 如果此时状态为 pending，先暂时存入数组中
+        // 异步执行
         case PENDING:
           this.FULLFILLED_CALLBACK_LIST.push(realOnFullfilled);
           this.REJECTED_CALLBACK_LIST.push(realOnRejected);
@@ -120,7 +123,7 @@ class MyPromise {
       queueMicrotask(() => {
         x.then((y) => {
           this.resolvePromise(promise2, y, resolve, reject)
-        })
+        }, reject)
       })
     } else if (typeof x == 'object' || this.isFunction(x)) {
       if (x == null) {
